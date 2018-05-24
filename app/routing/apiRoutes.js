@@ -40,7 +40,7 @@ var path = require('path');
         var totalDifference = 0;
 
         //Runs through the new scores of user input to compare to friends
-        for (var k=0; k<userScores.length; k++){
+        for (var k=0; k<10; k++){
           totalDifference += Math.abs(parseInt(userScores[k])- parseInt(friends[i].scores));
 
           //If sum of differences is less than differences of the current match
@@ -64,13 +64,5 @@ var path = require('path');
       res.json(match);
     });
   };
-
-
-
-      //var match = {
-       // name: '',
-       // photo: '',
-      //  matchDifference: 1000
-     // };
 
 
