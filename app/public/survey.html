@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Survey</title>
 
-  <!-- Popper -->
-  <link rel = 'stylesheet' href = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js">
+<!-- Link to Jquery -->
+<script src="https://code.jquery.com/jquery.js"></script>
 
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -21,19 +21,25 @@
 </head>
 <body>
     <div class="container">
+
+      <!-- Header of Page -->
         <div class="jumbotron">
             <h3 class="display-4">Find your match!</h3>
             <p class="lead">Survey Questions</p>
             <hr class="my-4">
           </div>
+
+    <!-- Form for name and Photo input -->
     <form>
+
     <div class="form-group">
-      <label for="formGroupExampleInput">Name (Required) </label>
-      <input type="text" class="form-control" id="name" placeholder = "First and last name">
+      <label for="user-name">Name (Required) </label>
+      <input type="text" class="form-control" id="user-name" placeholder = "First and last name">
     </div>
+
     <div class="form-group">
-      <label for="formGroupExampleInput2">Link to Photo Image (Required) </label>
-      <input type="text" class="form-control" id="photo" placeholder = "link">
+      <label for="user-photo">Link to Photo Image (Required) </label>
+      <input type="text" class="form-control" id="user-photo" placeholder = "">
     </div>
     <hr class="my-4">
     </form>
@@ -96,7 +102,7 @@
           </select>
           
       <h5><strong>Question 6</strong></h5>
-        <p>I </p>
+        <p>I tend to be shy when in social outings</p>
           <select data-placeholder="" class="browser-default" id="q6">
             <option value="">Choose an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -107,7 +113,7 @@
           </select>   
 
       <h5><strong>Question 7</strong></h5>
-        <p>I </p>
+        <p>I spend most of my free time sleeping</p>
           <select data-placeholder="" class="browser-default" id="q7">
             <option value="">Choose an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -118,7 +124,7 @@
           </select>
 
        <h5><strong>Question 8</strong></h5>
-        <p>I </p>
+        <p>I love to be the center of attention</p>
           <select data-placeholder="" class="browser-default" id="q8">
             <option value="">Choose an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -129,7 +135,7 @@
           </select>
 
      <h5><strong>Question 9</strong></h5>
-        <p>I </p>
+        <p>I am very organized and clean </p>
           <select data-placeholder="" class="browser-default" id="q9">
             <option value="">Choose an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -140,7 +146,7 @@
           </select>
           
       <h5><strong>Question 10</strong></h5>
-        <p>I </p>
+        <p>I enjoy being active in my free time </p>
           <select data-placeholder="" class="browser-default" id="q10">
             <option value="">Choose an option</option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -156,38 +162,77 @@
 
       <!-- Submit Button -->
       <div>
-          <input class="btn btn-primary" id= 'submit-btn' type="submit" value="Submit">
+          <button type="submit" class ="btn btn-primary submit" id = "submit">Submit</button>
       </div> 
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="container"> 
+          <hr>
+         <a href = "/api/friends">API Friends List</a> ||
+         <a href = "https://github.com/kayjlou/friendfinder"> Git Hub Repo</a>
+        </div>
+      </footer>
+
+
+
+      <!-- Modal -->
+      <div id ='matchModal' class='modal fade' role='dialog'>
+        <div class="modal-dialog">
+
+          <!--Content -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type='button' class='close' data-dismiss='modal'>&times;</button>
+              <h2 class="modal-title"> Your Best Match</h2>
+            </div>
+            <div class="modal-body">
+              <h2 id="matchName"></h2>
+              <img id='matchImg' src='file:///Users/PATH.jpg' alt=''>
+            </div>
+            <div class="modal-footer">
+              <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
       <!-- Takes input and sends to server -->
      <script type='text/javascript'>
-     $(document).ready(function(){
-     $('#submit-btn').on('click', function(){
+    // $(document).ready(function(){
+
+     $('#submit').on('click', function(event){
        event.preventDefault();
+
        //Form Validation (if is filled out)
         function validateForm(){
           var isValid = true;
           $('.form-control').each(function(){
-            if($(this).val()==='')
-            isValid = false;
-          });
-          $('.chosen-select').each(function(){
-            if($(this).val()==='')
-            isValid = false;
-          })
+            if($(this).val() ===''){
+           isValid = false;
+          }
+         });
+
+         $('#browser-default').each(function(){
+           if($(this).val()===''){
+           isValid = false;
+          }
+        });
           return isValid;
         }
       
       //})
-    // })
+    //})
+
      //If all required fields are filled
-     if (validateForm() == true){
+    if (validateForm() == true){
+
        //Holds user input
        var userInfo = {
-         name: $('#name').val().trim(),
-         pic: $('#photo').val().trim(),
-         score : [
+         userName: $('#user-name').val().trim(),
+         userPhoto: $('#user-photo').val().trim(),
+         userScores : [
            $('#q1').val(),
            $('#q2').val(),
            $('#q3').val(),
@@ -201,14 +246,54 @@
          ]
        };
       }
+       else {
+         alert ("Please fill out all forms")
+
+       }
+
+       //Console log to test gathered input
+       console.log(userInfo);
 
      //Gets current Url
-     var currentUrl = window.location.origin;
+     //var currentUrl = window.location.origin;
 
-     $.post(currentUrl + '/api/friends', userInfo, function(data){
-       //J Query info from modal and post info
-     });
+     //Post the data to the friends file
+     $.post('/api/friends', userInfo, function(data){
+
+
+      //If.else
+
     
+
+       //J Query info from modal and post info
+       $('#matchName').text(data.name)
+       $('#matchImg').attr('src', data.photo);
+       $('#resultsModal').modal('toggle')
+     });
+     
+     //Modal Pops up
+     //MODE CODE GOES HERE
+
+    
+
+     //Clears the form after submitted
+     $('#name').val("")
+     $('#photo').val("")
+     $('#q1').val(""),
+     $('#q2').val(""),
+     $('#q3').val(""),
+     $('#q4').val(""),
+           $('#q5').val(""),
+           $('#q6').val(""),
+           $('#q7').val(""),
+           $('#q8').val(""),
+           $('#q9').val(""),
+           $('#q10').val("");
+
+
+   // return false;
+   });
+//});
 
 </script>
   
