@@ -40,7 +40,7 @@ var path = require('path');
         var totalDifference = 0;
 
         //Runs through the new scores of user input to compare to friends
-        for (var k=0; k<10; k++){
+        for (var k=0; k<userScores.length; k++){
           totalDifference += Math.abs(parseInt(userScores[k])- parseInt(friends[i].scores));
 
           //If sum of differences is less than differences of the current match

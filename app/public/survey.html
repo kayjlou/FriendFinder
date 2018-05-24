@@ -245,14 +245,6 @@
            $('#q10').val(),
          ]
        };
-      }
-       else {
-         alert ("Please fill out all forms")
-
-       }
-
-       //Console log to test gathered input
-       console.log(userInfo);
 
      //Post the data to the friends file
      $.post('/api/friends', userInfo, function(data){
@@ -263,7 +255,9 @@
        $('#matchImg').attr('src', data.photo);
        $('#matchModal').modal('toggle')
      });
-     
+
+     //Modal Pop up
+     //$('#matchModal').modal('toggle')
 
     
 
@@ -280,7 +274,10 @@
      $('#q8').val(""),
      $('#q9').val(""),
      $('#q10').val("");
-
+    }
+    else {
+         alert ("Please fill out all forms")
+    }
    });
 //});
 
