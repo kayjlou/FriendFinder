@@ -1,0 +1,31 @@
+{
+  "name": "friendfinder",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "path": "^0.12.7"
+  },
+  "engines": { 
+    "node": "6.9.5"
+  },
+  "description": "A web based application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kayjlou/FriendFinder.git"
+  },
+  "keywords": [
+    "\""
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kayjlou/FriendFinder/issues"
+  },
+  "homepage": "https://github.com/kayjlou/FriendFinder#readme"
+}
