@@ -18,38 +18,50 @@ var path = require('path');
     app.post('/api/friends', function(req,res){
 
       //Push data 
-      friends.push(req.body);
+      //friends.push(req.body);
 
-      //Compares the user input scores to the friends array
-      var userScores = req.body.userScores;
-      var scoresArray = [];
-      var friendCount = 0;
-      var match = 0;
+      var match = {
+        name: '',
+        photo: '',
+        matchDifference: 1000
+      };
+
+      var userInfo = req.body;
+      var userName = userInfo.name;
+      var userPhoto = userInfo.photo;
+      var userScores = userInfo.scores;
+
+      var totalDifference = 0;
+
       
-      //Loops through the current friends in the coded friends array
+      //Loops through the current friends to get scores
       for (var i=0; i<friends.length; i++){
-        var scoreDifference = 0;
-        //Runs through the new scores of user input to compare to friends array 
-        for (var k=0; k<userScores.length; k++){
-          scoreDifference += (Math.abs(parseInt(friends[i].scores[k])- parseInt(userScores[k])));
+        console.log(friends[i].name);
+        var totalDifference = 0;
+
+        //Runs through the new scores of user input to compare to friends
+        for (var k=0; k<10; k++){
+          totalDifference += Math.abs(parseInt(userScores[k])- parseInt(friends[i].scores));
+
+          //If sum of differences is less than differences of the current match
+          if(totalDifference<= match.matchDifference){
+
+            //Reset
+            match.name = friends[i].name;
+            match.photo = friends[i].photo;
+            match.matchDifference = totalDifference;
+          }
         }
 
-      //Put the results into the scoresArray 
-      scoresArray.push(scoreDifference);
-      }
-
-      //After comparing the scores find the best match for the user
-      for(var i=0; i<scoresArray.length; i++){
-        if(scoresArray[i] <= scoresArray[match]){
-          match = 0;
-        }
+    
+      
       }
 
       //Returns the match data
-      var finalMatch = friends[match];
-      res.json(finalMatch);
+    
 
-      friends.push(req.body);
+      friends.push(userInfo);
+      res.json(match);
     });
   };
 

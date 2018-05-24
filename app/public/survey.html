@@ -184,11 +184,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type='button' class='close' data-dismiss='modal'>&times;</button>
-              <h2 class="modal-title"> Your Best Match</h2>
+              <h2 class="modal-title"> Your Best Match is:</h2>
             </div>
             <div class="modal-body">
               <h2 id="matchName"></h2>
-              <img id='matchImg' src='file:///Users/PATH.jpg' alt=''>
+              <img id='matchImg' width='450' src='' alt=''>
             </div>
             <div class="modal-footer">
               <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -230,9 +230,9 @@
 
        //Holds user input
        var userInfo = {
-         userName: $('#user-name').val().trim(),
-         userPhoto: $('#user-photo').val().trim(),
-         userScores : [
+         name: $('#user-name').val().trim(),
+         photo: $('#user-photo').val().trim(),
+         scores : [
            $('#q1').val(),
            $('#q2').val(),
            $('#q3').val(),
@@ -254,25 +254,16 @@
        //Console log to test gathered input
        console.log(userInfo);
 
-     //Gets current Url
-     //var currentUrl = window.location.origin;
-
      //Post the data to the friends file
      $.post('/api/friends', userInfo, function(data){
-
-
-      //If.else
-
     
 
        //J Query info from modal and post info
        $('#matchName').text(data.name)
        $('#matchImg').attr('src', data.photo);
-       $('#resultsModal').modal('toggle')
+       $('#matchModal').modal('toggle')
      });
      
-     //Modal Pops up
-     //MODE CODE GOES HERE
 
     
 
@@ -283,15 +274,13 @@
      $('#q2').val(""),
      $('#q3').val(""),
      $('#q4').val(""),
-           $('#q5').val(""),
-           $('#q6').val(""),
-           $('#q7').val(""),
-           $('#q8').val(""),
-           $('#q9').val(""),
-           $('#q10').val("");
+     $('#q5').val(""),
+     $('#q6').val(""),
+     $('#q7').val(""),
+     $('#q8').val(""),
+     $('#q9').val(""),
+     $('#q10').val("");
 
-
-   // return false;
    });
 //});
 
