@@ -6,9 +6,9 @@ This app uses express to handle routing and is deployed in Heroku so other users
 
 ## To Install
 
--git clone https://github.com/kayjlou/FriendFinder.git
--npm install
--Run node server.js from terminal
+-git clone https://github.com/kayjlou/FriendFinder.git  
+-npm install  
+-Run node server.js from terminal  
 -Navigate to http://localhost:8080/
 
 ## Deployed Link
