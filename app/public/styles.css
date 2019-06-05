@@ -1,0 +1,9 @@
+@media screen and (max-width: 720px) {
+  h5 {
+    background-color: olive;
+  }
+}
+
+h5 {
+  border-top: black 2px solid
+}
