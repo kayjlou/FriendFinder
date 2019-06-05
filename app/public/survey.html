@@ -194,7 +194,7 @@
           </div>
           <div class="modal-body">
             <h2 id="matchName"></h2>
-            <img id='matchImg' width='450' src='' alt=''>
+            <img id='matchImg' width='auto' height="250" src='' alt=''>
           </div>
           <div class="modal-footer">
             <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -206,7 +206,6 @@
 
     <!-- Takes input and sends to server -->
     <script type='text/javascript'>
-      // $(document).ready(function(){
 
       $('#submit').on('click', function (event) {
         event.preventDefault();
@@ -228,8 +227,6 @@
           return isValid;
         }
 
-        //})
-        //})
 
         //If all required fields are filled
         if (validateForm) {

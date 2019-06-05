@@ -35,8 +35,8 @@ module.exports = function (app) {
 
     //Loops through the current friends to get scores
     for (var i = 0; i < friends.length; i++) {
-      console.log("Checking match with: " + friends[i].name);
       console.log("-------------------------------------------")
+      console.log("Checking match with: " + friends[i].name);
       var currentFriend = friends[i]
       var totalDifference = 0;
 
