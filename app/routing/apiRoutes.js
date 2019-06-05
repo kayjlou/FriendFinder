@@ -3,69 +3,69 @@
 
 //Load friend data
 var friends = require("../data/friends.js");
-var path = require("path");
 
 module.exports = function (app) {
 
   //API get request to display JSON of all friends
   app.get("/api/friends", function (req, res) {
+    //Returns json of friends
     res.json(friends);
   });
 
   //API post
   app.post("/api/friends", function (req, res) {
-    //Push data
+    //Take in new values(name, photo score)
+    var newUser = req.body
+    //Pass into findMatch function
+    let newMatch = findMatch(newUser)
+    //Push to friends .json
+    friends.push(newUser)
+    //Return new match
+    return res.send(newMatch)
+  })
 
+  // This function runs to find match
+  const findMatch = (newUser) => {
+    var userScores = newUser.scores
     //Preset match data
     var match = {
       name: "",
       photo: "",
-      matchDifference: 1000
+      matchDifference: 200
     };
-
-    var userInfo = req.body;
-    // var userName = userInfo.name;
-    // var userPhoto = userInfo.photo;
-    var userScores = userInfo.scores;
+    console.log("We are finding new match for " + newUser.name)
 
 
-    // friends.push(userInfo);
-
-
-
-
+    //  newUser.scores
     //Loops through the current friends to get scores
     for (var i = 0; i < friends.length; i++) {
-      console.log("Checking match with:" + friends[i].name);
+      console.log("Checking match with: " + friends[i].name);
+      var currentFriend = friends[i]
       var totalDifference = 0;
 
 
+
       //Runs through the new scores of user input to compare to friends
-      for (var k = 0; k < 11; k++) {
+      for (var k = 0; k < currentFriend.scores.length; k++) {
+        var currentFriendScore = currentFriend.scores[k]
+        var currentUserScore = userScores[k]
         totalDifference += Math.abs(
-          parseInt(userScores[k]) - parseInt(friends[i].scores)
+          parseInt(currentUserScore) - parseInt(currentFriendScore)
         );
-        console.log(friends[i].name)
         console.log("the total difference is: " + totalDifference)
-
-        //If sum of differences is less than differences of the current match
-        if (totalDifference <= match.matchDifference) {
-          let match = {
-            name: friends[i].name,
-            photo: friends[i].photo,
-            matchDifference: totalDifference
-          }
-          console.log("The new match is" + match)
-
-          res.send(match)
-        }
       }
+
+      //If sum of differences is less than differences of the current match
+      if (totalDifference <= match.matchDifference) {
+        match = {
+          name: currentFriend.name,
+          photo: currentFriend.photo,
+          matchDifference: totalDifference
+        }
+        console.log("The new match is" + match.name)
+      }
+
     }
-
-    //Returns the match data
-    console.log("Pushing info to friends json")
-    friends.push(userInfo);
-    // console.log("The match is" + match);
-
-  });
+    return match
+  }
 };
